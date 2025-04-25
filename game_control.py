@@ -1,26 +1,22 @@
 import cv2
-from pynput.keyboard import Controller, Key  # Importing necessary keys
-from pynput.mouse import Controller as MouseController, Button  # Mouse controller
-import handtracking as htm  # Your hand tracking module
+from pynput.keyboard import Controller, Key 
+from pynput.mouse import Controller as MouseController, Button  
+import handtracking as htm  
 import time
 
-##############################################
+cap = cv2.VideoCapture(0)  
+cap.set(3, 640) 
+cap.set(4, 480)  
 
-cap = cv2.VideoCapture(0)  # Open webcam
-cap.set(3, 640)  # Set width
-cap.set(4, 480)  # Set height
+detector = htm.handDetector(maxHands=1, detectionCon=0.75, trackCon=0.75)  
 
-#############################################
-
-detector = htm.handDetector(maxHands=1, detectionCon=0.75, trackCon=0.75)  # Hand detection with better confidence
-
-keyboard = Controller()  # Keyboard controller to send keypresses
-mouse = MouseController()  # Mouse controller to handle mouse events
+keyboard = Controller()  
+mouse = MouseController()  
 
 # Control states
-control_mode = "keyboard"  # Start with keyboard mode by default
-switch_time = time.time()  # Timer to debounce switching between modes
-switch_delay = 5.0  # Delay of 1 second to prevent accidental switching
+control_mode = "keyboard"  
+switch_time = time.time()  
+switch_delay = 5.0  # Delay 
 
 mouse_pressed = False  # To track mouse clicks
 
@@ -34,31 +30,30 @@ def debounce_switch():
     return False
 
 while True:
-    success, img = cap.read()  # Read frame from camera
-    img = detector.findHands(img)  # Detect hands in the frame
-    lmList, bbox = detector.findPosition(img)  # Get landmark positions of the hand
+    success, img = cap.read()  
+    img = detector.findHands(img)  
+    lmList, bbox = detector.findPosition(img)  # Get landmark positions 
 
-    if len(lmList) != 0:  # If a hand is detected
-        fingers = detector.fingersUp()  # Get which fingers are up
-
+    if len(lmList) != 0:  
+        fingers = detector.fingersUp()  
         # Gesture to switch to mouse mode (Thumb and Pinky up)
-        if fingers[0] == 1 and fingers[4] == 1 and all(f == 0 for f in fingers[1:4]) and control_mode != "mouse":
-            if debounce_switch():  # Prevent accidental switching
-                control_mode = "mouse"
-                print("Switched to Mouse Mode")
-
+        # if fingers[0] == 1 and fingers[4] == 1 and all(f == 0 for f in fingers[1:4]) and control_mode != "mouse":
+        #     if debounce_switch():  # Prevent accidental switching
+        #         control_mode = "mouse"
+        #         print("Switched to Mouse Mode")
+        
         # Gesture to switch to keyboard mode (Index and Middle finger up)
-        elif fingers[0] == 1 and fingers[4] == 1 and all(f == 0 for f in fingers[1:4]) and control_mode != "keyboard":
+        if fingers[0] == 1 and fingers[4] == 1 and all(f == 0 for f in fingers[1:4]) and control_mode != "keyboard":
             if debounce_switch():
                 control_mode = "keyboard"
                 print("Switched to Keyboard Mode")
 
         if control_mode == "keyboard":
             # Keyboard controls
-            if all(fingers):  # Jump (Space)
-                keyboard.press(Key.space)
-            else:
-                keyboard.release(Key.space)
+            # if all(fingers):  # Jump (Space)wawa
+            #     keyboard.press(Key.space)
+            # else:
+            #     keyboard.release(Key.space)
 
             # Esc gesture: Thumb and Ring finger up
             if fingers[0] == 1 and fingers[3] == 1 and all(f == 0 for f in [1, 2, 4]):
@@ -74,28 +69,30 @@ while True:
                 keyboard.release("w")
 
             # Turn Left (A): Thumb up
-            if fingers[0] == 1 and all(f == 0 for f in fingers[1:]):  # Only thumb up
+            if fingers[0] == 1 and fingers[1] == 1 and all(f == 0 for f in fingers[2:]):  # Only thumb up
+                keyboard.press("w")
                 keyboard.press("a")
             else:
                 keyboard.release("a")
 
-            # Turn Right (D): Middle finger up
-            if fingers[2] == 1 and all(f == 0 for f in fingers[:2] + fingers[3:]):  # Only middle finger up
+            # Turn Right (D):
+            if fingers[1] == 1 and fingers[2] == 1 and all(f == 0 for f in fingers[:1] + fingers[3:]): 
+                keyboard.press("w") 
                 keyboard.press("d")
             else:
                 keyboard.release("d")
 
-            # Brake/Reverse (S): Index finger down
-            if fingers[1] == 0:
+            # Brake/Reverse (S): I
+            if all(fingers) :
                 keyboard.press("s")
             else:
                 keyboard.release("s")
 
-            # Honk (H): Thumb and Pinky up
-            if fingers[0] == 1 and fingers[4] == 1:
-                keyboard.press("h")
-            else:
-                keyboard.release("h")
+            # # Honk (H): Thumb and Pinky up
+            # if fingers[0] == 1 and fingers[4] == 1:
+            #     keyboard.press("h")
+            # else:
+            #     keyboard.release("h")
 
         elif control_mode == "mouse":
             # Mouse controls
@@ -108,11 +105,11 @@ while True:
 
             # Scroll gesture: All fingers up
             if all(fingers):
-                mouse.scroll(0, 1)  # Scroll up
+                mouse.scroll(0, 1)  # Scroll up 
 
-            # Fist gesture: Scroll down
-            if fingers == [0, 0, 0, 0, 0]:
-                mouse.scroll(0, -1)  # Scroll down
+            # # Fist gesture: Scroll down
+            # if fingers == [0, 0, 0, 0, 0]:
+            #     mouse.scroll(0, -1)  # Scroll down
 
             # Index finger up to move the mouse pointer
             if fingers[1] == 1 and all(f == 0 for f in fingers[:1] + fingers[2:]):  # Only index finger up
