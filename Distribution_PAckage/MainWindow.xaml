@@ -1,0 +1,471 @@
+<Window x:Class="AirSync.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="AirSync - Hand Gesture Gaming Controller"
+        Height="650"
+        Width="900"
+        MinHeight="600"
+        MinWidth="800"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <materialDesign:DialogHost Identifier="RootDialog">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <materialDesign:ColorZone Grid.Row="0"
+                    Padding="16"
+                    materialDesign:ElevationAssist.Elevation="Dp4"
+                                      Mode="PrimaryMid">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <materialDesign:PackIcon Grid.Column="0"
+                            Kind="Gamepad"
+                            Width="32"
+                            Height="32"
+                                             VerticalAlignment="Center"
+                            Margin="0,0,16,0"/>
+
+                    <StackPanel Grid.Column="1"
+                            VerticalAlignment="Center">
+                        <TextBlock Text="AirSync Gaming Controller"
+                                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                        <TextBlock Text="Control racing games with natural hand gestures"
+                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                   Opacity="0.8"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="2"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Click="ShowAbout_Click"
+                            ToolTip="About">
+                        <materialDesign:PackIcon Kind="Information"/>
+                    </Button>
+                </Grid>
+            </materialDesign:ColorZone>
+
+            <!-- Main Content -->
+            <ScrollViewer Grid.Row="1"
+                    VerticalScrollBarVisibility="Auto">
+                <Grid Margin="32">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Status Card -->
+                    <materialDesign:Card Grid.Row="0"
+                            Margin="0,0,0,24"
+                            Padding="24">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:PackIcon Grid.Column="0"
+                                    x:Name="StatusIcon"
+                                    Kind="Circle"
+                                                     Width="24"
+                                    Height="24"
+                                    VerticalAlignment="Center"
+                                                     Foreground="Orange"
+                                    Margin="0,0,16,0"/>
+
+                            <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Center">
+                                <TextBlock x:Name="StatusText"
+                                        Text="Ready to start"
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                                <TextBlock x:Name="StatusDetails"
+                                        Text="Click Start to begin hand gesture detection"
+                                           Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                           Opacity="0.7"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2"
+                                    Orientation="Horizontal">
+                                <Button x:Name="StartButton"
+                                        Content="START"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Margin="0,0,8,0"
+                                        Click="StartButton_Click"
+                                        materialDesign:ButtonAssist.CornerRadius="20"
+                                        Background="#4CAF50"
+                                        BorderBrush="#4CAF50"/>
+
+                                <Button x:Name="StopButton"
+                                        Content="STOP"
+                                        Style="{StaticResource MaterialDesignRaisedButton}"
+                                        Click="StopButton_Click"
+                                        IsEnabled="False"
+                                        materialDesign:ButtonAssist.CornerRadius="20"
+                                        Background="#F44336"
+                                        BorderBrush="#F44336"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <!-- Controls Guide -->
+                    <materialDesign:Card Grid.Row="1"
+                            Margin="0,0,0,24"
+                            Padding="24">
+                        <StackPanel>
+                            <TextBlock Text="🎮 Gesture Controls"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Margin="0,0,0,16"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"
+                                        Margin="0,0,16,0">
+                                    <TextBlock Text="🏎️ Driving Controls:"
+                                            FontWeight="SemiBold"
+                                            Margin="0,0,0,8"/>
+                                    <TextBlock Text="• Both thumbs UP: Idle/Coast"
+                                            Margin="0,0,0,4"/>
+                                    <TextBlock Text="• Left thumb UP + Right DOWN: Accelerate"
+                                            Margin="0,0,0,4"/>
+                                    <TextBlock Text="• Left thumb DOWN + Right UP: Brake"
+                                            Margin="0,0,0,4"/>
+                                    <TextBlock Text="• Both thumbs DOWN: Handbrake"
+                                            Margin="0,0,0,4"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="🎯 Additional Controls:"
+                                            FontWeight="SemiBold"
+                                            Margin="0,0,0,8"/>
+                                    <TextBlock Text="• Steering: Rotate hands like a wheel"
+                                            Margin="0,0,0,4"/>
+                                    <TextBlock Text="• Left index finger UP: A Button"
+                                            Margin="0,0,0,4"/>
+                                    <TextBlock Text="• ESC key: Exit application"
+                                            Margin="0,0,0,4"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- Game Shortcuts -->
+                    <materialDesign:Card Grid.Row="2"
+                            Margin="0,0,0,24"
+                            Padding="24">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                        Text="🎮 Game Shortcuts"
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                           VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal">
+                                    <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                                            Click="AddGame_Click"
+                                            Margin="0,0,8,0"
+                                            materialDesign:ButtonAssist.CornerRadius="16"
+                                            Background="#2196F3"
+                                            BorderBrush="#2196F3">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Plus"
+                                                        Width="16"
+                                                        Height="16"
+                                                                         VerticalAlignment="Center"
+                                                        Margin="0,0,4,0"/>
+                                                <TextBlock Text="Add Game"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            Click="ManageGames_Click"
+                                            materialDesign:ButtonAssist.CornerRadius="16">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Settings"
+                                                        Width="16"
+                                                        Height="16"
+                                                                         VerticalAlignment="Center"
+                                                        Margin="0,0,4,0"/>
+                                                <TextBlock Text="Manage"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Game List -->
+                            <ScrollViewer x:Name="GameListScrollViewer"
+                                    MaxHeight="200"
+                                    VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="GameShortcutsList">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <materialDesign:Card Margin="0,0,0,8"
+                                                    Padding="16">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <materialDesign:PackIcon Grid.Column="0"
+                                                            Kind="Gamepad2"
+                                                                             Width="24"
+                                                            Height="24"
+                                                                             VerticalAlignment="Center"
+                                                                             Margin="0,0,12,0"
+                                                                             Foreground="#4CAF50"/>
+
+                                                    <StackPanel Grid.Column="1"
+                                                            VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Name}"
+                                                                FontWeight="SemiBold"
+                                                                FontSize="14"/>
+                                                        <TextBlock Text="{Binding Path}"
+                                                                Opacity="0.7"
+                                                                FontSize="12"
+                                                                   TextTrimming="CharacterEllipsis"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Column="2"
+                                                            Orientation="Horizontal">
+                                                        <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                                Click="LaunchGame_Click"
+                                                                ToolTip="Launch Game"
+                                                                Tag="{Binding}">
+                                                            <materialDesign:PackIcon Kind="Play"
+                                                                    Foreground="#4CAF50"/>
+                                                        </Button>
+
+                                                        <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                                Click="EditGame_Click"
+                                                                ToolTip="Edit Game"
+                                                                Tag="{Binding}">
+                                                            <materialDesign:PackIcon Kind="Pencil"
+                                                                    Foreground="#FF9800"/>
+                                                        </Button>
+
+                                                        <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                                Click="DeleteGame_Click"
+                                                                ToolTip="Delete Game"
+                                                                Tag="{Binding}">
+                                                            <materialDesign:PackIcon Kind="Delete"
+                                                                    Foreground="#F44336"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </materialDesign:Card>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+
+                            <!-- Empty State -->
+                            <StackPanel x:Name="EmptyGameListPanel"
+                                    HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                    Margin="20">
+                                <materialDesign:PackIcon Kind="GamepadVariantOutline"
+                                        Width="48"
+                                        Height="48"
+                                                         Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                         HorizontalAlignment="Center"
+                                        Margin="0,0,0,16"/>
+                                <TextBlock Text="No games added yet"
+                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                <TextBlock Text="Click 'Add Game' to add your racing games"
+                                           Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                           Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- System Requirements -->
+                    <materialDesign:Card Grid.Row="3"
+                            Margin="0,0,0,24"
+                            Padding="24">
+                        <StackPanel>
+                            <TextBlock Text="⚙️ System Requirements"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Margin="0,0,0,16"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0"
+                                        Margin="0,0,16,0">
+                                    <TextBlock Text="📋 Requirements:"
+                                            FontWeight="SemiBold"
+                                            Margin="0,0,0,8"/>
+                                    <StackPanel x:Name="RequirementsPanel">
+                                        <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,4">
+                                            <materialDesign:PackIcon x:Name="PythonIcon"
+                                                    Kind="CheckCircle"
+                                                                     Foreground="Orange"
+                                                    Width="16"
+                                                    Height="16"
+                                                                     VerticalAlignment="Center"
+                                                    Margin="0,0,8,0"/>
+                                            <TextBlock Text="Python 3.7+"
+                                                    VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,4">
+                                            <materialDesign:PackIcon x:Name="CameraIcon"
+                                                    Kind="CheckCircle"
+                                                                     Foreground="Orange"
+                                                    Width="16"
+                                                    Height="16"
+                                                                     VerticalAlignment="Center"
+                                                    Margin="0,0,8,0"/>
+                                            <TextBlock Text="Webcam connected"
+                                                    VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,4">
+                                            <materialDesign:PackIcon x:Name="DependenciesIcon"
+                                                    Kind="CheckCircle"
+                                                                     Foreground="Orange"
+                                                    Width="16"
+                                                    Height="16"
+                                                                     VerticalAlignment="Center"
+                                                    Margin="0,0,8,0"/>
+                                            <TextBlock Text="Python dependencies"
+                                                    VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="🔧 Setup:"
+                                            FontWeight="SemiBold"
+                                            Margin="0,0,0,8"/>
+                                    <Button Content="Check Dependencies"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            Click="CheckDependencies_Click"
+                                            Margin="0,0,0,8"/>
+                                    <Button Content="Install Dependencies"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            Click="InstallDependencies_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+
+                    <!-- Log Output -->
+                    <materialDesign:Card Grid.Row="4"
+                            Padding="16">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,8">
+                                <TextBlock Text="📝 Application Log"
+                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                           VerticalAlignment="Center"/>
+                                <Button Content="Clear"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Click="ClearLog_Click"
+                                        Margin="16,0,0,0"
+                                        Padding="8,4"/>
+                            </StackPanel>
+
+                            <Border Grid.Row="1"
+                                    Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                                    CornerRadius="4"
+                                    Padding="8">
+                                <ScrollViewer x:Name="LogScrollViewer"
+                                        VerticalScrollBarVisibility="Auto"
+                                              Height="200">
+                                    <TextBlock x:Name="LogOutput"
+                                            TextWrapping="Wrap"
+                                               FontFamily="Consolas"
+                                            FontSize="11"
+                                               Background="Transparent"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+            </ScrollViewer>
+
+            <!-- Footer -->
+            <materialDesign:ColorZone Grid.Row="2"
+                    Padding="16"
+                    materialDesign:ElevationAssist.Elevation="Dp2"
+                                      Mode="PrimaryDark">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                            Text="AirSync v1.0 - Advanced Hand Gesture Gaming Controller"
+                               VerticalAlignment="Center"
+                            Opacity="0.8"/>
+
+                    <StackPanel Grid.Column="1"
+                            Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Eye"
+                                Width="16"
+                                Height="16"
+                                                 VerticalAlignment="Center"
+                                Margin="0,0,4,0"/>
+                        <TextBlock x:Name="FpsDisplay"
+                                Text="FPS: --"
+                                VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:ColorZone>
+        </Grid>
+    </materialDesign:DialogHost>
+</Window>

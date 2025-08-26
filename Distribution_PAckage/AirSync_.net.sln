@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirSync", "AirSync.csproj", "{838642A2-2479-1E91-966B-C042A3066592}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{838642A2-2479-1E91-966B-C042A3066592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838642A2-2479-1E91-966B-C042A3066592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838642A2-2479-1E91-966B-C042A3066592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838642A2-2479-1E91-966B-C042A3066592}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {840890C3-DCDF-4E20-BA3D-48327FC9605A}
+	EndGlobalSection
+EndGlobal

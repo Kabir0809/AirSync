@@ -1,0 +1,100 @@
+<Window x:Class="AirSync.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="About AirSync" Height="400" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <materialDesign:ColorZone Grid.Row="0" Padding="24" Mode="PrimaryMid">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Gamepad" Width="32" Height="32" 
+                                       VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <StackPanel>
+                    <TextBlock Text="AirSync Gaming Controller" 
+                             Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                    <TextBlock Text="Version 1.0.0" 
+                             Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                             Opacity="0.8"/>
+                </StackPanel>
+            </StackPanel>
+        </materialDesign:ColorZone>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" Padding="24" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="🎮 Advanced Hand Gesture Gaming Controller" 
+                         FontWeight="SemiBold" FontSize="16" Margin="0,0,0,16"/>
+                
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,16">
+                    AirSync revolutionizes gaming by allowing you to control racing games using natural hand gestures. 
+                    Using advanced computer vision and machine learning, it tracks your hand movements and translates 
+                    them into precise game controls.
+                </TextBlock>
+
+                <TextBlock Text="✨ Features:" FontWeight="SemiBold" Margin="0,16,0,8"/>
+                <TextBlock TextWrapping="Wrap" Margin="16,0,0,16">
+                    • Real-time hand tracking with MediaPipe<LineBreak/>
+                    • Natural steering wheel simulation<LineBreak/>
+                    • Intuitive thumb gestures for acceleration/braking<LineBreak/>
+                    • Automatic calibration system<LineBreak/>
+                    • Smooth control with dead zone and filtering<LineBreak/>
+                    • Support for additional game controls
+                </TextBlock>
+
+                <TextBlock Text="🛠️ Technology Stack:" FontWeight="SemiBold" Margin="0,16,0,8"/>
+                <TextBlock TextWrapping="Wrap" Margin="16,0,0,16">
+                    • Python 3.7+ with OpenCV and MediaPipe<LineBreak/>
+                    • .NET 6 WPF with Material Design<LineBreak/>
+                    • Virtual gamepad simulation (vgamepad)<LineBreak/>
+                    • Computer vision and machine learning
+                </TextBlock>
+
+                <TextBlock Text="🎯 How to Use:" FontWeight="SemiBold" Margin="0,16,0,8"/>
+                <TextBlock TextWrapping="Wrap" Margin="16,0,0,16">
+                    1. Ensure your webcam is connected and working<LineBreak/>
+                    2. Install Python dependencies using the Setup button<LineBreak/>
+                    3. Click START to begin calibration<LineBreak/>
+                    4. Follow the on-screen calibration instructions<LineBreak/>
+                    5. Start gaming with natural hand gestures!
+                </TextBlock>
+
+                <TextBlock Text="⚠️ System Requirements:" FontWeight="SemiBold" Margin="0,16,0,8"/>
+                <TextBlock TextWrapping="Wrap" Margin="16,0,0,16">
+                    • Windows 10/11<LineBreak/>
+                    • Python 3.7 or higher<LineBreak/>
+                    • USB webcam or built-in camera<LineBreak/>
+                    • 4GB RAM minimum (8GB recommended)<LineBreak/>
+                    • Compatible racing game
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <materialDesign:ColorZone Grid.Row="2" Padding="16" Mode="PrimaryDark">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="© 2025 AirSync Gaming Controller" 
+                         VerticalAlignment="Center" Opacity="0.8"/>
+                
+                <Button Grid.Column="1" Content="Close" 
+                      Style="{StaticResource MaterialDesignFlatButton}"
+                      Click="CloseButton_Click"/>
+            </Grid>
+        </materialDesign:ColorZone>
+    </Grid>
+</Window>
