@@ -5,7 +5,7 @@ and hand gesture detection.
 
 Requirements:
 - Python 3.7+
-- OpenCV
+- OpenCV with CUDA support
 - MediaPipe
 - NumPy
 - vgamepad (for Windows)
@@ -19,15 +19,24 @@ import collections
 import vgamepad as vg
 import threading
 
+# Check if CUDA is available for GPU acceleration
+CUDA_AVAILABLE = cv2.cuda.getCudaEnabledDeviceCount() > 0
+if CUDA_AVAILABLE:
+    print(f"CUDA is available with {cv2.cuda.getCudaEnabledDeviceCount()} device(s)")
+    # Initialize CUDA device
+    cv2.cuda.setDevice(0)
+else:
+    print("CUDA is not available, falling back to CPU processing")
+
 # Configuration constants
-STEERING_SENSITIVITY = 3.5  # Multiplier for steering angle
+STEERING_SENSITIVITY = 4.0  # Multiplier for steering angle
 THUMB_EXTENSION_THRESHOLD = 0.08  # Distance threshold for detecting extended thumbs
 FINGER_EXTENSION_THRESHOLD = 0.1  # Distance threshold for detecting extended fingers
 WHEEL_ROTATION_SMOOTHING = 0.5  # Smoothing factor (0-1) for steering
 DEAD_ZONE = 3.0  # Degrees of movement to ignore (dead zone)
 CALIBRATION_FRAMES = 60  # Number of frames to use for calibration
 MAX_STEERING_ANGLE = 180  # Maximum degrees for full steering
-FULL_TURN_ANGLE = 90.0  # Angle at which steering reaches maximum (full turn)
+FULL_TURN_ANGLE = 80.0  # Angle at which steering reaches maximum (full turn)
 
 # Initialize MediaPipe
 mp_hands = mp.solutions.hands
@@ -401,15 +410,36 @@ def calibrate_steering_wheel():
             continue
         
         # Flip image horizontally for a more intuitive experience
-        image = cv2.flip(image, 1)
+        if CUDA_AVAILABLE:
+            # GPU processing path
+            gpu_image = cv2.cuda.GpuMat()
+            gpu_image.upload(image)
+            gpu_image = cv2.cuda.flip(gpu_image, 1)
+            image = gpu_image.download()
+        else:
+            # CPU processing path
+            image = cv2.flip(image, 1)
         
-        # Process image with MediaPipe
+        # Process image with MediaPipe (always on CPU as MediaPipe doesn't support GPU)
         image.flags.writeable = False
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        results = hands.process(image)
+        if CUDA_AVAILABLE:
+            gpu_rgb = cv2.cuda.GpuMat()
+            gpu_rgb.upload(image)
+            gpu_rgb = cv2.cuda.cvtColor(gpu_rgb, cv2.COLOR_BGR2RGB)
+            rgb_image = gpu_rgb.download()
+            results = hands.process(rgb_image)
+            
+            # Convert back to BGR for display
+            gpu_bgr = cv2.cuda.GpuMat()
+            gpu_bgr.upload(rgb_image)
+            gpu_bgr = cv2.cuda.cvtColor(gpu_bgr, cv2.COLOR_RGB2BGR)
+            image = gpu_bgr.download()
+        else:
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            results = hands.process(image)
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         
         image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         
         left_hand_landmarks = None
         right_hand_landmarks = None
@@ -499,7 +529,15 @@ def main():
             continue
         
         # Flip image horizontally for a more intuitive experience
-        image = cv2.flip(image, 1)
+        if CUDA_AVAILABLE:
+            # GPU processing path
+            gpu_image = cv2.cuda.GpuMat()
+            gpu_image.upload(image)
+            gpu_image = cv2.cuda.flip(gpu_image, 1)
+            image = gpu_image.download()
+        else:
+            # CPU processing path
+            image = cv2.flip(image, 1)
         
         # Calculate FPS
         current_time = time.time()
@@ -508,13 +546,28 @@ def main():
         avg_fps = sum(fps_values) / len(fps_values)
         prev_time = current_time
         
-        # Process image with MediaPipe
+        # Process image with MediaPipe (always on CPU as MediaPipe doesn't support GPU)
         image.flags.writeable = False
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        results = hands.process(image)
-        
-        image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        if CUDA_AVAILABLE:
+            # Convert to RGB on GPU for MediaPipe processing
+            gpu_rgb = cv2.cuda.GpuMat()
+            gpu_rgb.upload(image)
+            gpu_rgb = cv2.cuda.cvtColor(gpu_rgb, cv2.COLOR_BGR2RGB)
+            rgb_image = gpu_rgb.download()
+            results = hands.process(rgb_image)
+            
+            # Convert back to BGR for drawing
+            image.flags.writeable = True
+            gpu_bgr = cv2.cuda.GpuMat()
+            gpu_bgr.upload(rgb_image)
+            gpu_bgr = cv2.cuda.cvtColor(gpu_bgr, cv2.COLOR_RGB2BGR)
+            image = gpu_bgr.download()
+        else:
+            # Original CPU path
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            results = hands.process(image)
+            image.flags.writeable = True
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         
         left_hand_landmarks = None
         right_hand_landmarks = None
