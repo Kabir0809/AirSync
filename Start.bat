@@ -1,0 +1,1 @@
+python D:\AirSync\final.py
