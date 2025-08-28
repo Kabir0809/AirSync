@@ -169,3 +169,7 @@ AirSync_Distribution/
 
 ---
 **Experience the future of gaming with natural hand gestures!** 🎮✋
+
+🔗 **Related Repository:**
+
+For more details, code, and updates, visit the project repository: [https://github.com/Kabir0809/6th_Sem_Summer_Internship](https://github.com/Kabir0809/6th_Sem_Summer_Internship)
