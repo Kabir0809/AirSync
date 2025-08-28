@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AirSync")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2aebc91afcd52632cd8c45bd33eee7eb184a1fec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d8afaced213d2d3e0251d19abb81e96ddcf170d")]
 [assembly: System.Reflection.AssemblyProductAttribute("AirSync")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AirSync - Hand Gesture Gaming Controller")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
