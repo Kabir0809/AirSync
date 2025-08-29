@@ -1,0 +1,13 @@
+[
+  {
+    "Id": "4f159b97-34fe-4e42-8566-a483a0bc5383",
+    "Name": "Example Racing Game",
+    "Path": "C:\\Program Files\\Example\\RacingGame.exe",
+    "Arguments": "",
+    "LastPlayed": "0001-01-01T00:00:00",
+    "PlayCount": 0,
+    "DisplayPath": "RacingGame.exe",
+    "IsValid": false,
+    "LastPlayedText": "Never played"
+  }
+]

@@ -197,6 +197,13 @@ namespace AirSync
                     return;
                 }
 
+                // Check if the file exists before adding
+                if (!File.Exists(_gameShortcut.Path))
+                {
+                    ShowMessage($"The file '{_gameShortcut.Path}' does not exist. Please enter a valid executable path.", true);
+                    return;
+                }
+
                 // Add or update the game in the manager
                 if (_isEditMode)
                 {
@@ -207,8 +214,12 @@ namespace AirSync
                     await _gameManager.AddGameAsync(_gameShortcut);
                 }
 
-                DialogResult = true;
-                Close();
+                // Ensure dialog result is set and window closes
+                Dispatcher.Invoke(() =>
+                {
+                    DialogResult = true;
+                    Close();
+                });
             }
             catch (Exception ex)
             {

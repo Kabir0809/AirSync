@@ -20,7 +20,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <materialDesign:DialogHost Identifier="RootDialog">
-        <Grid>
+        <Grid Background="#23272F">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -28,10 +28,10 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <materialDesign:ColorZone Grid.Row="0"
-                    Padding="16"
-                    materialDesign:ElevationAssist.Elevation="Dp4"
-                                      Mode="PrimaryMid">
+        <materialDesign:ColorZone Grid.Row="0"
+            Padding="20"
+            materialDesign:ElevationAssist.Elevation="Dp8"
+            Mode="PrimaryDark">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -39,27 +39,34 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <materialDesign:PackIcon Grid.Column="0"
-                            Kind="Gamepad"
-                            Width="32"
-                            Height="32"
-                                             VerticalAlignment="Center"
-                            Margin="0,0,16,0"/>
+            <materialDesign:PackIcon Grid.Column="0"
+                Kind="Gamepad"
+                Width="44"
+                Height="44"
+                VerticalAlignment="Center"
+                Foreground="#FF3A86FF"
+                Margin="0,0,20,0"/>
 
                     <StackPanel Grid.Column="1"
                             VerticalAlignment="Center">
                         <TextBlock Text="AirSync Gaming Controller"
-                                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                                   Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                                   Foreground="#FF3A86FF"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,2"/>
                         <TextBlock Text="Control racing games with natural hand gestures"
-                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                                   Opacity="0.8"/>
+                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                   Foreground="#FFFB5607"
+                                   FontWeight="SemiBold"
+                                   Opacity="0.95"/>
                     </StackPanel>
 
                     <Button Grid.Column="2"
                             Style="{StaticResource MaterialDesignIconButton}"
                             Click="ShowAbout_Click"
                             ToolTip="About">
-                        <materialDesign:PackIcon Kind="Information"/>
+                        <materialDesign:PackIcon Kind="Information"
+                                                Foreground="#00B8D4"/>
                     </Button>
                 </Grid>
             </materialDesign:ColorZone>
@@ -77,9 +84,10 @@
                     </Grid.RowDefinitions>
 
                     <!-- Status Card -->
-                    <materialDesign:Card Grid.Row="0"
-                            Margin="0,0,0,24"
-                            Padding="24">
+            <materialDesign:Card Grid.Row="0"
+                Margin="0,0,0,24"
+                Padding="28"
+                materialDesign:ElevationAssist.Elevation="Dp4">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -87,14 +95,14 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <materialDesign:PackIcon Grid.Column="0"
-                                    x:Name="StatusIcon"
-                                    Kind="Circle"
-                                                     Width="24"
-                                    Height="24"
-                                    VerticalAlignment="Center"
-                                                     Foreground="Orange"
-                                    Margin="0,0,16,0"/>
+                <materialDesign:PackIcon Grid.Column="0"
+                    x:Name="StatusIcon"
+                    Kind="Circle"
+                    Width="28"
+                    Height="28"
+                    VerticalAlignment="Center"
+                    Foreground="#00B8D4"
+                    Margin="0,0,18,0"/>
 
                             <StackPanel Grid.Column="1"
                                     VerticalAlignment="Center">
@@ -115,8 +123,13 @@
                                         Margin="0,0,8,0"
                                         Click="StartButton_Click"
                                         materialDesign:ButtonAssist.CornerRadius="20"
-                                        Background="#4CAF50"
-                                        BorderBrush="#4CAF50"/>
+                                        Background="#FF3A86FF"
+                                        BorderBrush="#FF3A86FF"
+                                        Foreground="White">
+                                    <Button.Effect>
+                                        <DropShadowEffect Color="#FF3A86FF" BlurRadius="12" ShadowDepth="2"/>
+                                    </Button.Effect>
+                                </Button>
 
                                 <Button x:Name="StopButton"
                                         Content="STOP"
@@ -124,16 +137,22 @@
                                         Click="StopButton_Click"
                                         IsEnabled="False"
                                         materialDesign:ButtonAssist.CornerRadius="20"
-                                        Background="#F44336"
-                                        BorderBrush="#F44336"/>
+                                        Background="#FFFB5607"
+                                        BorderBrush="#FFFB5607"
+                                        Foreground="White">
+                                    <Button.Effect>
+                                        <DropShadowEffect Color="#FFFB5607" BlurRadius="12" ShadowDepth="2"/>
+                                    </Button.Effect>
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </materialDesign:Card>
 
                     <!-- Controls Guide -->
-                    <materialDesign:Card Grid.Row="1"
-                            Margin="0,0,0,24"
-                            Padding="24">
+            <materialDesign:Card Grid.Row="1"
+                Margin="0,0,0,24"
+                Padding="28"
+                materialDesign:ElevationAssist.Elevation="Dp2">
                         <StackPanel>
                             <TextBlock Text="🎮 Gesture Controls"
                                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -176,9 +195,10 @@
                     </materialDesign:Card>
 
                     <!-- Game Shortcuts -->
-                    <materialDesign:Card Grid.Row="2"
-                            Margin="0,0,0,24"
-                            Padding="24">
+            <materialDesign:Card Grid.Row="2"
+                Margin="0,0,0,24"
+                Padding="28"
+                materialDesign:ElevationAssist.Elevation="Dp2">
                         <StackPanel>
                             <Grid Margin="0,0,0,16">
                                 <Grid.ColumnDefinitions>
@@ -197,8 +217,9 @@
                                             Click="AddGame_Click"
                                             Margin="0,0,8,0"
                                             materialDesign:ButtonAssist.CornerRadius="16"
-                                            Background="#2196F3"
-                                            BorderBrush="#2196F3">
+                                            Background="#FF3A86FF"
+                                            BorderBrush="#FF3A86FF"
+                                            Foreground="White">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="Plus"
@@ -213,7 +234,8 @@
 
                                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
                                             Click="ManageGames_Click"
-                                            materialDesign:ButtonAssist.CornerRadius="16">
+                                            materialDesign:ButtonAssist.CornerRadius="16"
+                                            Foreground="#FF3A86FF">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon Kind="Settings"
@@ -245,7 +267,7 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <materialDesign:PackIcon Grid.Column="0"
-                                                            Kind="Gamepad2"
+                                                            Kind="Gamepad"
                                                                              Width="24"
                                                             Height="24"
                                                                              VerticalAlignment="Center"
@@ -265,13 +287,17 @@
 
                                                     <StackPanel Grid.Column="2"
                                                             Orientation="Horizontal">
-                                                        <Button Style="{StaticResource MaterialDesignIconButton}"
-                                                                Click="LaunchGame_Click"
-                                                                ToolTip="Launch Game"
-                                                                Tag="{Binding}">
-                                                            <materialDesign:PackIcon Kind="Play"
-                                                                    Foreground="#4CAF50"/>
-                                                        </Button>
+                            <Button Style="{StaticResource MaterialDesignIconButton}"
+                                Click="LaunchGame_Click"
+                                ToolTip="Launch Game"
+                                Tag="{Binding}">
+                                <materialDesign:PackIcon Kind="PlayCircle"
+                                    Foreground="#FFFB5607"/>
+                            </Button>
+                            <!-- In code-behind, update LaunchGame_Click to:
+                                 1. Run test.py (Python script) first
+                                 2. Then launch the selected game
+                            -->
 
                                                         <Button Style="{StaticResource MaterialDesignIconButton}"
                                                                 Click="EditGame_Click"
@@ -321,9 +347,10 @@
                     </materialDesign:Card>
 
                     <!-- System Requirements -->
-                    <materialDesign:Card Grid.Row="3"
-                            Margin="0,0,0,24"
-                            Padding="24">
+            <materialDesign:Card Grid.Row="3"
+                Margin="0,0,0,24"
+                Padding="28"
+                materialDesign:ElevationAssist.Elevation="Dp1">
                         <StackPanel>
                             <TextBlock Text="⚙️ System Requirements"
                                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -397,8 +424,9 @@
                     </materialDesign:Card>
 
                     <!-- Log Output -->
-                    <materialDesign:Card Grid.Row="4"
-                            Padding="16">
+            <materialDesign:Card Grid.Row="4"
+                Padding="20"
+                materialDesign:ElevationAssist.Elevation="Dp1">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -438,32 +466,38 @@
             </ScrollViewer>
 
             <!-- Footer -->
-            <materialDesign:ColorZone Grid.Row="2"
-                    Padding="16"
-                    materialDesign:ElevationAssist.Elevation="Dp2"
-                                      Mode="PrimaryDark">
+        <materialDesign:ColorZone Grid.Row="2"
+            Padding="20"
+            materialDesign:ElevationAssist.Elevation="Dp4"
+            Mode="PrimaryDark">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0"
-                            Text="AirSync v1.0 - Advanced Hand Gesture Gaming Controller"
-                               VerticalAlignment="Center"
-                            Opacity="0.8"/>
+            <TextBlock Grid.Column="0"
+                Text="AirSync v1.0 - Advanced Hand Gesture Gaming Controller"
+                VerticalAlignment="Center"
+                Foreground="#FF3A86FF"
+                FontWeight="Bold"
+                FontSize="16"
+                Opacity="0.95"/>
 
-                    <StackPanel Grid.Column="1"
-                            Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Eye"
-                                Width="16"
-                                Height="16"
-                                                 VerticalAlignment="Center"
-                                Margin="0,0,4,0"/>
-                        <TextBlock x:Name="FpsDisplay"
-                                Text="FPS: --"
-                                VerticalAlignment="Center"/>
-                    </StackPanel>
+            <StackPanel Grid.Column="1"
+                Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="Eye"
+                Width="18"
+                Height="18"
+                VerticalAlignment="Center"
+                Foreground="#FFFB5607"
+                Margin="0,0,6,0"/>
+            <TextBlock x:Name="FpsDisplay"
+                Text="FPS: --"
+                VerticalAlignment="Center"
+                Foreground="#FFFB5607"
+                FontWeight="Bold"/>
+            </StackPanel>
                 </Grid>
             </materialDesign:ColorZone>
         </Grid>

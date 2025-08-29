@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eSU+P4Aiq+M=",
+  "dgSpecHash": "WZnSTDafTC0=",
   "success": true,
-  "projectFilePath": "C:\\SGP_Hand_Gestures\\Distribution_PAckage\\AirSync.csproj",
+  "projectFilePath": "c:\\SGP_Hand_Gestures\\Distribution_PAckage\\AirSync.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\motat\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
     "C:\\Users\\motat\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",

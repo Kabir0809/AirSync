@@ -23,7 +23,7 @@ if %ERRORLEVEL% neq 0 (
 echo ✓ Python found
 
 echo 📦 Installing Python dependencies...
-pip install -r requirements.txt
+pip install -r AirSync\requirements.txt
 if %ERRORLEVEL% neq 0 (
     echo ❌ Failed to install Python dependencies!
     echo Please check your internet connection and try again.

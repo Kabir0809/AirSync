@@ -19,9 +19,7 @@ namespace AirSync
         private StringBuilder _logBuffer = new StringBuilder();
         private GameManager _gameManager = null!;
 
-        // Add references to UI controls if not auto-generated
-        // private Button StartButton => (Button)FindName("StartButton");
-        // private Button StopButton => (Button)FindName("StopButton");
+    // Add references to UI controls if not auto-generated
         // private TextBlock FpsDisplay => (TextBlock)FindName("FpsDisplay");
         // private TextBlock StatusText => (TextBlock)FindName("StatusText");
         // private TextBlock StatusDetails => (TextBlock)FindName("StatusDetails");
@@ -500,6 +498,32 @@ namespace AirSync
                 if (sender is Button button && button.Tag is GameShortcut game)
                 {
                     AddToLog($"Launching game: {game.Name}");
+
+                    // Run test.py before launching the game, and track the process
+                    try
+                    {
+                        string pythonExe = "python";
+                        string scriptPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.py");
+                        var psi = new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = pythonExe,
+                            Arguments = $"\"{scriptPath}\"",
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true
+                        };
+                        _pythonProcess = System.Diagnostics.Process.Start(psi);
+                        AddToLog("Started hand gesture recognition script (test.py)");
+                        StopButton.IsEnabled = true;
+                        StartButton.IsEnabled = false;
+                        await Task.Delay(1000); // Let the script start
+                    }
+                    catch (Exception pyEx)
+                    {
+                        AddToLog($"Failed to start test.py: {pyEx.Message}");
+                        MessageBox.Show($"Failed to start hand gesture recognition script: {pyEx.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
 
                     var success = await _gameManager.LaunchGameAsync(game);
                     if (success)

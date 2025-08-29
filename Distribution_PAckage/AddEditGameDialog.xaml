@@ -45,7 +45,8 @@
                          materialDesign:HintAssist.Hint="Game Name"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Margin="0,0,0,16"
-                         Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                         TextChanged="GameNameTextBox_TextChanged"/>
 
                 <!-- Game Path -->
                 <Grid Margin="0,0,0,16">
@@ -59,7 +60,8 @@
                              materialDesign:HintAssist.Hint="Game Executable Path"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              Margin="0,0,8,0"
-                             Text="{Binding Path, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Path, UpdateSourceTrigger=PropertyChanged}"
+                             TextChanged="GamePathTextBox_TextChanged"/>
 
                     <Button Grid.Column="1"
                             Content="Browse"

@@ -1,0 +1,24 @@
+[
+  {
+    "Id": "30e2f568-5b83-42f7-b7c1-6480c2274eb2",
+    "Name": "Example Racing Game",
+    "Path": "C:\\Users\\motat\\Downloads\\CodingArena.exe",
+    "Arguments": "",
+    "LastPlayed": "2025-08-30T01:49:57.2052905+05:30",
+    "PlayCount": 11,
+    "DisplayPath": "CodingArena.exe",
+    "IsValid": true,
+    "LastPlayedText": "6 minutes ago"
+  },
+  {
+    "Id": "a6e165ce-357f-438c-b90b-3ee61c0e6ac8",
+    "Name": "game",
+    "Path": "C:\\Users\\motat\\Downloads\\learnwithclock.exe",
+    "Arguments": "",
+    "LastPlayed": "2025-08-30T01:56:26.5419202+05:30",
+    "PlayCount": 1,
+    "DisplayPath": "learnwithclock.exe",
+    "IsValid": true,
+    "LastPlayedText": "Just now"
+  }
+]
