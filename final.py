@@ -520,11 +520,11 @@ def main():
         right_hand_landmarks = None
         
         if results.multi_hand_landmarks:
-            # Process detected hands
-            if len(results.multi_hand_landmarks) >= 2:
-                # Identify which hand is which
+            # process detected hands
+            if len(results.multi_hand_landmarks) >= 2: 
+                # identify which hand is which
                 for idx, hand_landmarks in enumerate(results.multi_hand_landmarks):
-                    # Draw hand landmarks on the image
+                    # draw hand landmarks on the image
                     mp_drawing.draw_landmarks(
                         image, hand_landmarks, mp_hands.HAND_CONNECTIONS,
                         mp_drawing_styles.get_default_hand_landmarks_style(),
